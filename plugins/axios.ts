@@ -1,15 +1,27 @@
 import axios from 'axios'
-
 export default defineNuxtPlugin(() => {
-  const config = useRuntimeConfig()
+	const instance = axios.create({
+		baseURL: 'http://95.130.227.195:8090/',
+	})
 
-  const instance = axios.create({
-    baseURL: 'http://10.20.11.16:8090/',
-  })
+	instance.interceptors.request.use(
+		request => {
+			if (process.client) {
+				const token = localStorage.getItem('access_token')
+				if (token) {
+					request.headers.Authorization = `Bearer ${token}`
+				}
+			}
+			return request
+		},
+		error => {
+			return Promise.reject(error)
+		}
+	)
 
-  return {
-    provide: {
-      axios: instance
-    }
-  }
+	return {
+		provide: {
+			axios: instance,
+		},
+	}
 })

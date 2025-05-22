@@ -4,6 +4,17 @@ export default defineNuxtConfig({
 	compatibilityDate: '2025-05-15',
 	devtools: { enabled: true },
   ssr: false,
+	app: {
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/logo.jpg' 
+        }
+      ]
+    }
+  },
 	modules: ['@nuxt/icon', '@element-plus/nuxt'],
 	css: ['~/assets/css/main.css'],
 	vite: {

@@ -2,7 +2,7 @@
 	<div
 		class="min-h-screen flex flex-col gap-2 items-center justify-center bg-gray-50 p-4"
 	>
-		<p class="text-lg font-semibold">Заведующий склада NWL</p>
+		<p class="text-xl text-gray-500 mb-2">Заведующий склада NWL</p>
 
 		<el-form
 			label-position="top"
@@ -15,11 +15,7 @@
 
 			<!-- Company -->
 			<el-form-item label="Компания" required>
-				<el-select
-					v-model="selectedCompany"
-					placeholder="Выберите компанию"
-					filterable
-				>
+				<el-select v-model="selectedCompany" placeholder="Выберите компанию">
 					<el-option
 						v-for="company in companies"
 						:key="company"
@@ -42,10 +38,7 @@
 			</el-form-item>
 
 			<!-- Car Number -->
-			<el-form-item
-				label="Номер машины (01X001XX / 01001XXX)"
-				required
-			>
+			<el-form-item label="Номер машины (01X001XX / 01001XXX)" required>
 				<el-input v-model="carNumber" placeholder="Введите номер машины" />
 			</el-form-item>
 
@@ -69,7 +62,12 @@
 
 			<!-- Submit Button -->
 			<el-form-item>
-				<el-button type="primary" @click="submitForm" :disabled="!isFormValid">
+				<el-button
+					type="primary"
+					@click="submitForm"
+					:disabled="!isFormValid"
+					:loading="isLoading"
+				>
 					Отправить
 				</el-button>
 			</el-form-item>
@@ -78,14 +76,14 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-
+const $axios = useAxios()
 const passNumber = ref('')
 const selectedCompany = ref('')
 const customCompany = ref('')
 const carNumber = ref('')
 const placesCount = ref('')
 const cargoWeight = ref('')
+const isLoading = ref(false)
 
 const companies = [
 	'SAODAT EXPRESS',
@@ -190,26 +188,49 @@ const isFormValid = computed(() => {
 	)
 })
 
-const submitForm = () => {
+const submitForm = async () => {
+	isLoading.value = true
+
 	const companyName =
-		selectedCompany.value === 'Other'
+		selectedCompany.value === 'Другое'
 			? customCompany.value
 			: selectedCompany.value
 
-	console.log({
-		passNumber: passNumber.value,
+	const payload = {
+		pass_number: passNumber.value,
 		company: companyName,
-		carNumber: carNumber.value,
-		placesCount: placesCount.value,
-		cargoWeight: cargoWeight.value,
-	})
-}
-</script>
+		car_number: carNumber.value,
+		places_count: placesCount.value,
+		cargo_weight: cargoWeight.value,
+	}
 
-<style scoped>
-@media (max-width: 640px) {
-	.el-form-item {
-		margin-bottom: 1.2rem;
+	try {
+		await $axios.post('api/exit-records', payload)
+
+		ElNotification({
+			title: 'Успешно',
+			message: 'Пропуск успешно добавлен',
+			type: 'success',
+			duration: 3000,
+		})
+
+		// Сброс полей
+		passNumber.value = ''
+		selectedCompany.value = ''
+		customCompany.value = ''
+		carNumber.value = ''
+		placesCount.value = ''
+		cargoWeight.value = ''
+	} catch (error) {
+		console.error(error)
+		ElNotification({
+			title: 'Ошибка',
+			message: 'Не удалось отправить данные',
+			type: 'error',
+			duration: 3000,
+		})
+	} finally {
+		isLoading.value = false
 	}
 }
-</style>
+</script>
