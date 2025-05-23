@@ -16,79 +16,62 @@ const availableViews = ref([])
 const selectedView = ref('')
 
 const roleLabels = {
-	form1: 'Охранник',
-	form2: 'Менеджер',
-	admin: 'Админ',
+  form1: 'Охранник',
+  form2: 'Менеджер',
+  admin: 'Админ',
 }
 
 const updateView = () => {
-	const rolesSet = new Set(roles.value)
+  const views = []
+  if (roles.value.includes('GUARD')) views.push('form1')
+  if (roles.value.includes('MANAGER')) views.push('form2')
+  if (roles.value.includes('ADMIN')) views.push('admin')
 
-	if (
-		rolesSet.has('ADMIN') &&
-		rolesSet.has('MANAGER') &&
-		rolesSet.has('GUARD')
-	) {
-		selectedView.value = 'admin'
-		availableViews.value = ['admin']
-	} else if (rolesSet.size === 1) {
-		if (rolesSet.has('GUARD')) {
-			selectedView.value = 'form1'
-			availableViews.value = ['form1']
-		} else if (rolesSet.has('MANAGER')) {
-			selectedView.value = 'form2'
-			availableViews.value = ['form2']
-		} else if (rolesSet.has('ADMIN')) {
-			selectedView.value = 'admin'
-			availableViews.value = ['admin']
-		} else {
-			selectedView.value = ''
-			availableViews.value = []
-		}
-	} else {
-		selectedView.value = ''
-		availableViews.value = []
-	}
+  availableViews.value = views
+  selectedView.value = views[0] || ''
 }
 
 const fetchUserInfo = async telegramId => {
-	try {
-		const generateRes = await $axios.get(
-			`/api/auth/generate-code?telegramId=${telegramId}`
-		)
-		authCode.value = generateRes.data.data
+  try {
+    const generateRes = await $axios.get(
+      `/api/auth/generate-code?telegramId=${telegramId}`
+    )
+    authCode.value = generateRes.data.data
 
-		const loginRes = await $axios.get(`/api/auth/login?code=${authCode.value}`)
-		userData.value = loginRes.data.data
-		roles.value = loginRes.data.data.roles
+    const loginRes = await $axios.get(`/api/auth/login?code=${authCode.value}`)
+    userData.value = loginRes.data.data
+    roles.value = loginRes.data.data.roles
 
-		localStorage.setItem('access_token', userData.value.access_token)
-		localStorage.setItem('user', JSON.stringify(userData.value.user))
-		localStorage.setItem('roles', JSON.stringify(roles.value))
+    localStorage.setItem('access_token', userData.value.access_token)
+    localStorage.setItem('user', JSON.stringify(userData.value.user))
+    localStorage.setItem('roles', JSON.stringify(roles.value))
 
-		access_token.value = userData.value.access_token
-		isFetched.value = true
-		updateView()
-	} catch (error) {
-		console.error('Ошибка авторизации:', error)
-	}
+    access_token.value = userData.value.access_token
+    isFetched.value = true
+    updateView()
+  } catch (error) {
+    console.error('Ошибка авторизации:', error)
+  }
 }
 
 onMounted(async () => {
-	const tokenFromUrl = route.query.access_token
+  const tokenFromUrl = route.query.access_token
 
-	if (tokenFromUrl && !localStorage.getItem('access_token')) {
-		await fetchUserInfo(tokenFromUrl)
-		const { access_token, ...restQuery } = route.query
-		router.replace({ query: restQuery })
-	} else if (!isFetched.value && access_token.value && !userData.value) {
-		await fetchUserInfo(access_token.value)
-	} else if (userData.value) {
-		isFetched.value = true
-		updateView()
-	}
+  if (tokenFromUrl) {
+    // Если токен в URL — всегда обновляем данные
+    await fetchUserInfo(tokenFromUrl)
+    const { access_token, ...restQuery } = route.query
+    router.replace({ query: restQuery })
+  } else if (access_token.value) {
+    // Если токен есть в localStorage — тоже обновляем данные всегда
+    await fetchUserInfo(access_token.value)
+  } else {
+    // Нет токена — ничего не делаем
+    isFetched.value = false
+  }
 })
 </script>
+
 
 <template>
 	<div class="">
