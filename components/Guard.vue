@@ -51,7 +51,7 @@
 						<el-select
 							v-model="form.fullName"
 							placeholder="Выберите сотрудника"
-							filterable
+							:filterable="false"
 						>
 							<el-option
 								v-for="user in users"
