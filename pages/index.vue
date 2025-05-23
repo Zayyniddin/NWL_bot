@@ -22,13 +22,33 @@ const roleLabels = {
 }
 
 const updateView = () => {
-	const views = []
-	if (roles.value.includes('GUARD')) views.push('form1')
-	if (roles.value.includes('MANAGER')) views.push('form2')
-	if (roles.value.includes('ADMIN')) views.push('admin')
+	const rolesSet = new Set(roles.value)
 
-	availableViews.value = views
-	selectedView.value = views[0] || ''
+	if (
+		rolesSet.has('ADMIN') &&
+		rolesSet.has('MANAGER') &&
+		rolesSet.has('GUARD')
+	) {
+		selectedView.value = 'admin'
+		availableViews.value = ['admin']
+	} else if (rolesSet.size === 1) {
+		if (rolesSet.has('GUARD')) {
+			selectedView.value = 'form1'
+			availableViews.value = ['form1']
+		} else if (rolesSet.has('MANAGER')) {
+			selectedView.value = 'form2'
+			availableViews.value = ['form2']
+		} else if (rolesSet.has('ADMIN')) {
+			selectedView.value = 'admin'
+			availableViews.value = ['admin']
+		} else {
+			selectedView.value = ''
+			availableViews.value = []
+		}
+	} else {
+		selectedView.value = ''
+		availableViews.value = []
+	}
 }
 
 const fetchUserInfo = async telegramId => {
