@@ -1,27 +1,15 @@
 <template>
-	<div class="min-h-screen flex items-center justify-center bg-gray-100 p-4 sm:p-6">
-		<div class="w-full max-w-4xl bg-white p-4 sm:p-6 rounded-xl shadow">
-			<h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center">
+	<div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+		<div class="w-full max-w-4xl bg-white p-6 rounded-xl shadow">
+			<h2 class="text-2xl font-semibold mb-4 text-center">
 				Админ панель — Пользователи
 			</h2>
 
 			<!-- Добавление пользователя -->
-			<div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
-				<el-input
-					v-model="newUser.name"
-					placeholder="Имя пользователя"
-					class="text-sm sm:text-base"
-				/>
-				<el-input
-					v-model="newUser.phone"
-					placeholder="Номер телефона"
-					class="text-sm sm:text-base"
-				/>
-				<el-select
-					v-model="newUser.role"
-					placeholder="Роль"
-					class="text-sm sm:text-base"
-				>
+			<div class="flex flex-col sm:flex-row gap-4 mb-6">
+				<el-input v-model="newUser.name" placeholder="Имя пользователя" />
+				<el-input v-model="newUser.phone" placeholder="Номер телефона" />
+				<el-select v-model="newUser.role" placeholder="Роль">
 					<el-option label="Охранник" value="GUARD" />
 					<el-option label="Зав. склад" value="MANAGER" />
 					<el-option label="Админ" value="ADMIN" />
@@ -31,32 +19,35 @@
 					:loading="addLoading"
 					@click="addUser"
 					:disabled="!formValid"
-					class="text-sm sm:text-base"
 				>
 					Добавить
 				</el-button>
 			</div>
 
 			<!-- Таблица -->
-			<el-table
-				:data="users"
-				stripe
-				class="w-full text-sm sm:text-base"
-				v-loading="loadingUsers"
-			>
+			<el-table :data="users" stripe class="w-full" v-loading="loadingUsers">
 				<el-table-column label="Имя">
 					<template #default="{ row }">
-						<span class="text-xs sm:text-sm lg:text-base">{{ row.full_name }}</span>
+						{{ row.full_name }}
 					</template>
 				</el-table-column>
 				<el-table-column label="Номер">
 					<template #default="{ row }">
-						<span class="text-xs sm:text-sm lg:text-base">{{ row.phone || '-' }}</span>
+						{{ row.phone || '-' }}
 					</template>
 				</el-table-column>
-				<el-table-column label="Роль">
+				<el-table-column label="Роли">
 					<template #default="{ row }">
-						<span class="text-xs sm:text-sm lg:text-base">{{ row.role || '-' }}</span>
+						<div class="flex flex-wrap gap-1">
+							<el-tag
+								v-for="(role, index) in row.roles"
+								:key="index"
+								type="info"
+								size="small"
+							>
+								{{ role }}
+							</el-tag>
+						</div>
 					</template>
 				</el-table-column>
 				<el-table-column label="Действия" width="120">
@@ -72,7 +63,6 @@
 									type="danger"
 									size="small"
 									:loading="deleteLoadingId === row.id"
-									class="text-xs sm:text-sm"
 								>
 									Удалить
 								</el-button>
@@ -84,7 +74,6 @@
 		</div>
 	</div>
 </template>
-
 
 <script setup>
 import { ElNotification } from 'element-plus'
@@ -130,7 +119,7 @@ const addUser = async () => {
 		const payload = {
 			full_name: newUser.value.name,
 			phone_number: newUser.value.phone.replace('+', ''),
-			permissions: [newUser.value.role]
+			permissions: [newUser.value.role],
 		}
 
 		await $axios.post('/api/auth/create', payload)

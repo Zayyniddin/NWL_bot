@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -7,22 +7,29 @@ const router = useRouter()
 const $axios = useAxios()
 
 const access_token = ref(localStorage.getItem('access_token') || null)
-const currentView = ref('')
 const isFetched = ref(false)
 const authCode = ref('')
 const userData = ref(JSON.parse(localStorage.getItem('user') || 'null'))
-const roles = ref(JSON.parse(localStorage.getItem('roles') || '[]')) 
+const roles = ref(JSON.parse(localStorage.getItem('roles') || '[]'))
+
+const availableViews = ref([])
+const selectedView = ref('')
+
+// Человеческие названия ролей
+const roleLabels = {
+	form1: 'Охранник',
+	form2: 'Менеджер',
+	admin: 'Админ',
+}
 
 const updateView = () => {
-	if (roles.value.includes('GUARD')) {
-		currentView.value = 'form1'
-	} else if (roles.value.includes('MANAGER')) {
-		currentView.value = 'form2'
-	} else if (roles.value.includes('ADMIN')) {
-		currentView.value = 'admin'
-	} else {
-		currentView.value = ''
-	}
+	const views = []
+	if (roles.value.includes('GUARD')) views.push('form1')
+	if (roles.value.includes('MANAGER')) views.push('form2')
+	if (roles.value.includes('ADMIN')) views.push('admin')
+
+	availableViews.value = views
+	selectedView.value = views[0] || ''
 }
 
 const fetchUserInfo = async (telegramId) => {
@@ -32,11 +39,11 @@ const fetchUserInfo = async (telegramId) => {
 
 		const loginRes = await $axios.get(`/api/auth/login?code=${authCode.value}`)
 		userData.value = loginRes.data.data
-		roles.value = loginRes.data.data.roles 
+		roles.value = loginRes.data.data.roles
 
 		localStorage.setItem('access_token', userData.value.access_token)
 		localStorage.setItem('user', JSON.stringify(userData.value.user))
-		localStorage.setItem('roles', JSON.stringify(roles.value)) 
+		localStorage.setItem('roles', JSON.stringify(roles.value))
 
 		access_token.value = userData.value.access_token
 		isFetched.value = true
@@ -51,7 +58,6 @@ onMounted(async () => {
 
 	if (tokenFromUrl && !localStorage.getItem('access_token')) {
 		await fetchUserInfo(tokenFromUrl)
-
 		const { access_token, ...restQuery } = route.query
 		router.replace({ query: restQuery })
 	} else if (!isFetched.value && access_token.value && !userData.value) {
@@ -63,12 +69,34 @@ onMounted(async () => {
 })
 </script>
 
-<template>
-	<div>
-		<Guard v-if="currentView === 'form1'" />
-		<Warehouse v-else-if="currentView === 'form2'" />
-		<Admin v-else-if="currentView === 'admin'" />
 
+<template>
+	<div class="relative">
+		<!-- Переключатель ролей -->
+		<div
+			v-if="availableViews.length > 1"
+			class="absolute top-4 right-4 z-50"
+		>
+			<select
+				v-model="selectedView"
+				class="px-3 py-1 border rounded bg-white text-sm"
+			>
+				<option
+					v-for="view in availableViews"
+					:key="view"
+					:value="view"
+				>
+					{{ roleLabels[view] }}
+				</option>
+			</select>
+		</div>
+
+		<!-- Компоненты по ролям -->
+		<Guard v-if="selectedView === 'form1'" />
+		<Warehouse v-else-if="selectedView === 'form2'" />
+		<Admin v-else-if="selectedView === 'admin'" />
+
+		<!-- Лоадер -->
 		<div v-else class="flex items-center justify-center h-screen">
 			<svg
 				class="animate-spin h-20 w-20 text-gray-700"
