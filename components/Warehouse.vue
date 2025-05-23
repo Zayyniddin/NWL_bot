@@ -8,6 +8,9 @@
 			label-position="top"
 			class="w-full max-w-xl bg-white p-6 rounded-xl shadow"
 		>
+			<el-form-item label="ФИО Зав. Склада" required>
+				<el-input v-model="userInfo.full_name" disabled />
+			</el-form-item>
 			<!-- Pass Number -->
 			<el-form-item label="Номер пропуска" required>
 				<el-input v-model="passNumber" placeholder="Введите номер пропуска" />
@@ -37,8 +40,19 @@
 				/>
 			</el-form-item>
 
+			<el-form-item label="Метод забора" required>
+				<el-select v-model="pickupMethod" placeholder="Выберите метод забора">
+					<el-option label="вручную" value="вручную" />
+					<el-option label="на машине" value="на машине" />
+				</el-select>
+			</el-form-item>
+
 			<!-- Car Number -->
-			<el-form-item label="Номер машины (01X001XX / 01001XXX)" required>
+			<el-form-item
+				v-if="pickupMethod === 'на машине'"
+				label="Номер машины (01X001XX / 01001XXX)"
+				required
+			>
 				<el-input v-model="carNumber" placeholder="Введите номер машины" />
 			</el-form-item>
 
@@ -83,7 +97,9 @@ const customCompany = ref('')
 const carNumber = ref('')
 const placesCount = ref('')
 const cargoWeight = ref('')
+const pickupMethod = ref('')
 const isLoading = ref(false)
+const userInfo = reactive(JSON.parse(localStorage.getItem('user') || '{}'))
 
 const companies = [
 	'SAODAT EXPRESS',
@@ -175,16 +191,20 @@ const companies = [
 
 const isFormValid = computed(() => {
 	const isCompanyValid =
-		selectedCompany.value === 'Other'
+		selectedCompany.value === 'Другое'
 			? customCompany.value.trim() !== ''
 			: selectedCompany.value.trim() !== ''
+
+	const isCarNumberValid =
+		pickupMethod.value === 'на машине' ? carNumber.value.trim() !== '' : true
 
 	return (
 		passNumber.value.trim() !== '' &&
 		isCompanyValid &&
-		carNumber.value.trim() !== '' &&
+		isCarNumberValid &&
 		placesCount.value.trim() !== '' &&
-		cargoWeight.value.trim() !== ''
+		cargoWeight.value.trim() !== '' &&
+		pickupMethod.value.trim() !== ''
 	)
 })
 
@@ -199,9 +219,10 @@ const submitForm = async () => {
 	const payload = {
 		pass_number: passNumber.value,
 		company: companyName,
-		car_number: carNumber.value,
+		car_number: pickupMethod.value === 'на машине' ? carNumber.value : '',
 		places_count: placesCount.value,
 		cargo_weight: cargoWeight.value,
+		pickup_method: pickupMethod.value,
 	}
 
 	try {
@@ -214,7 +235,6 @@ const submitForm = async () => {
 			duration: 3000,
 		})
 
-		// Сброс полей
 		passNumber.value = ''
 		selectedCompany.value = ''
 		customCompany.value = ''

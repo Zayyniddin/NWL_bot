@@ -28,26 +28,19 @@
 			<el-table :data="users" stripe class="w-full" v-loading="loadingUsers">
 				<el-table-column label="Имя">
 					<template #default="{ row }">
-						{{ row.full_name }}
+						<p class="text-[9px] sm:text-sm">{{ row.full_name }}</p>
 					</template>
 				</el-table-column>
 				<el-table-column label="Номер">
 					<template #default="{ row }">
-						{{ row.phone || '-' }}
+						<p class="text-[9px] sm:text-sm">{{ row.phone || '-' }}</p>
 					</template>
 				</el-table-column>
 				<el-table-column label="Роли">
 					<template #default="{ row }">
-						<div class="flex flex-wrap gap-1">
-							<el-tag
-								v-for="(role, index) in row.roles"
-								:key="index"
-								type="info"
-								size="small"
-							>
-								{{ role }}
-							</el-tag>
-						</div>
+						<el-tag type="info" size="small">
+							{{ formatRole(row.roles) }}
+						</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column label="Действия" width="120">
@@ -90,6 +83,18 @@ const newUser = ref({
 	phone: '',
 	role: '',
 })
+
+const roleLabels = {
+	GUARD: 'Охранник',
+	MANAGER: 'Зав. склад',
+	ADMIN: 'Админ',
+}
+
+const formatRole = roles => {
+	if (!roles || !roles.length) return '-'
+	if (roles.includes('ADMIN')) return roleLabels.ADMIN
+	return roleLabels[roles[0]] || roles[0]
+}
 
 const formValid = computed(() => {
 	return newUser.value.name && newUser.value.phone && newUser.value.role

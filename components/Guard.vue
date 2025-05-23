@@ -47,10 +47,10 @@
 					</el-form-item>
 
 					<!-- ФИО -->
-					<el-form-item label="ФИО сотрудника" prop="fullName">
+					<el-form-item label="ФИО охранника" prop="fullName">
 						<el-select
 							v-model="form.fullName"
-							placeholder="Выберите сотрудника"
+							placeholder="Выберите охранника"
 							:filterable="false"
 						>
 							<el-option
@@ -134,7 +134,8 @@
 						/>
 					</el-form-item>
 
-					<el-form-item label="Номер АТН (АТ123456789...)" prop="ATH">
+					<el-form-item label="Номер АТН (АТ123456789...)" prop="ATH"   v-if="form.direction === 'Импорт'">
+            
 						<el-input
 							v-model.number="form.ath"
 							placeholder="Введите номер ATH"
@@ -159,7 +160,6 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
 const $axios = useAxios()
 const users = ref([])
 const formRef = ref(null)

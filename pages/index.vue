@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
@@ -15,7 +15,6 @@ const roles = ref(JSON.parse(localStorage.getItem('roles') || '[]'))
 const availableViews = ref([])
 const selectedView = ref('')
 
-// Человеческие названия ролей
 const roleLabels = {
 	form1: 'Охранник',
 	form2: 'Менеджер',
@@ -32,9 +31,11 @@ const updateView = () => {
 	selectedView.value = views[0] || ''
 }
 
-const fetchUserInfo = async (telegramId) => {
+const fetchUserInfo = async telegramId => {
 	try {
-		const generateRes = await $axios.get(`/api/auth/generate-code?telegramId=${telegramId}`)
+		const generateRes = await $axios.get(
+			`/api/auth/generate-code?telegramId=${telegramId}`
+		)
 		authCode.value = generateRes.data.data
 
 		const loginRes = await $axios.get(`/api/auth/login?code=${authCode.value}`)
@@ -69,34 +70,29 @@ onMounted(async () => {
 })
 </script>
 
-
 <template>
-	<div class="relative">
-		<!-- Переключатель ролей -->
-		<div
-			v-if="availableViews.length > 1"
-			class="absolute top-4 right-4 z-50"
-		>
+	<div class="">
+		<div v-if="availableViews.length > 1" class="absolute top-4 right-4 z-50">
 			<select
 				v-model="selectedView"
 				class="px-3 py-1 border rounded bg-white text-sm"
 			>
-				<option
-					v-for="view in availableViews"
-					:key="view"
-					:value="view"
-				>
+				<option v-for="view in availableViews" :key="view" :value="view">
 					{{ roleLabels[view] }}
 				</option>
 			</select>
 		</div>
 
-		<!-- Компоненты по ролям -->
 		<Guard v-if="selectedView === 'form1'" />
 		<Warehouse v-else-if="selectedView === 'form2'" />
-		<Admin v-else-if="selectedView === 'admin'" />
+		<Admin
+			v-else-if="selectedView === 'admin'"
+			:selected-view="selectedView"
+			@update:selected-view="selectedView = $event"
+			:available-views="availableViews"
+			:role-labels="roleLabels"
+		/>
 
-		<!-- Лоадер -->
 		<div v-else class="flex items-center justify-center h-screen">
 			<svg
 				class="animate-spin h-20 w-20 text-gray-700"

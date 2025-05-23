@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default defineNuxtPlugin(() => {
 	const instance = axios.create({
-		baseURL: 'https://backend.efteams.uz//',
+		baseURL: 'https://backend.efteams.uz/',
 	})
 
 	// Request interceptor
@@ -29,6 +29,8 @@ export default defineNuxtPlugin(() => {
 				localStorage.removeItem('access_token')
 				localStorage.removeItem('roles')
 				localStorage.removeItem('user')
+				// Можешь перенаправить пользователя, если хочешь
+				// window.location.href = '/login'
 			}
 			return Promise.reject(error)
 		}
