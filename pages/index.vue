@@ -17,7 +17,7 @@ const selectedView = ref('')
 
 const roleLabels = {
   form1: 'Охранник',
-  form2: 'Менеджер',
+  form2: 'Зав. Склад',
   admin: 'Админ',
 }
 
