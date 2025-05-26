@@ -20,9 +20,9 @@
 			</el-form-item>
 
 			<!-- Остальные поля только если выбран actionType -->
-			<template v-if="form.actionType === 'выезд'">
+			<template v-if="form.actionType">
 				<!-- Номер пропуска -->
-				<el-form-item label="Номер пропуска" required prop="passNumber">
+				<el-form-item  v-if="form.actionType === 'выезд'" label="Номер пропуска" required prop="passNumber">
 					<el-input
 						v-model="form.passNumber"
 						placeholder="Введите номер пропуска"
