@@ -33,7 +33,7 @@ const updateView = () => {
 
 const fetchUserInfo = async telegramId => {
 	try {
-		alert(telegramId)
+		alert($axios.defaults.baseURL + `/api/auth/generate-code?telegramId=${telegramId}`)
 		const generateRes = await $axios.get(
 			`/api/auth/generate-code?telegramId=${telegramId}`
 		)
