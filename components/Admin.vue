@@ -103,9 +103,8 @@ const formValid = computed(() => {
 const loadUsers = async () => {
 	loadingUsers.value = true
 	try {
-		const res = await $axios.get('/api/auth/users')
+		const res = await $axios.get('/api/auth/users?is_guard=false')
 		users.value = res.data.data
-		console.log(users.value)
 	} catch (err) {
 		console.error(err)
 		ElNotification({

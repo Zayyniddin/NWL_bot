@@ -9,7 +9,7 @@
 			class="w-full max-w-xl bg-white p-6 rounded-xl shadow"
 		>
 			<el-form-item label="ФИО Зав. Склада" required>
-				<el-input v-model="userInfo.full_name" disabled />
+				<el-input v-model="managerName" disabled />
 			</el-form-item>
 			<!-- Pass Number -->
 			<el-form-item label="Номер пропуска" required>
@@ -99,7 +99,7 @@ const placesCount = ref('')
 const cargoWeight = ref('')
 const pickupMethod = ref('')
 const isLoading = ref(false)
-const userInfo = reactive(JSON.parse(localStorage.getItem('user') || '{}'))
+const managerName = 'Гафуров Кудратжон'
 
 const companies = [
 	'SAODAT EXPRESS',

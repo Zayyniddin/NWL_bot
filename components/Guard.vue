@@ -167,7 +167,7 @@ const isLoading = ref(false)
 
 onMounted(async () => {
 	try {
-		const res = await $axios.get('/api/auth/users')
+		const res = await $axios.get('/api/auth/users?is_guard=true')
 		users.value = res.data.data
 	} catch (err) {
 		console.error('Ошибка при загрузке пользователей:', err)
@@ -367,7 +367,6 @@ const rules = {
 
 const isFormValid = computed(() => {
 	const f = form.value
-	if (!f.actionType || !f.passNumber) return false
 	if (f.actionType === 'въезд') {
 		if (
 			!f.fullName ||
