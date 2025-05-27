@@ -218,6 +218,7 @@ const submitForm = async () => {
 
 	const payload = {
 		pass_number: passNumber.value,
+		full_name: managerName,
 		company: companyName,
 		car_number: pickupMethod.value === 'на машине' ? carNumber.value : '',
 		places_count: placesCount.value,
