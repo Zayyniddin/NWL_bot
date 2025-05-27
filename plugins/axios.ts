@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default defineNuxtPlugin(() => {
 	const instance = axios.create({
-		baseURL: 'http://10.20.10.117:8090/',
+		baseURL: 'http://backend.efteams.uz/',
 	})
 
 	// Request interceptor
