@@ -33,6 +33,7 @@ const updateView = () => {
 
 const fetchUserInfo = async telegramId => {
 	try {
+		alert(telegramId)
 		const generateRes = await $axios.get(
 			`/api/auth/generate-code?telegramId=${telegramId}`
 		)
@@ -56,7 +57,7 @@ const fetchUserInfo = async telegramId => {
 }
 
 onMounted(async () => {
-	const tokenFromUrl = route.query.access_token
+	 const tokenFromUrl = route.query.access_token
 	fetchUserInfo(tokenFromUrl)
 })
 </script>
