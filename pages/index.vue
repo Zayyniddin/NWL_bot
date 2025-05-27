@@ -36,6 +36,7 @@ const fetchUserInfo = async telegramId => {
 		const generateRes = await $axios.get(
 			`/api/auth/generate-code?telegramId=${telegramId}`
 		)
+		alert(generateRes.data.data)
 		authCode.value = generateRes.data.data
 
 		const loginRes = await $axios.get(`/api/auth/login?code=${authCode.value}`)
