@@ -1,0 +1,104 @@
+{
+	"guardPage": {
+		"title": "Охранник КПП NWL",
+		"actionType": "Тип действия",
+		"entry": "въезд",
+		"exit": "выезд",
+		"passNumber": "Номер пропуска",
+		"passPlaceholder": "Введите номер пропуска",
+		"kppNumber": "Номер КПП",
+		"kppPlaceholder": "Выберите КПП",
+		"guardName": "ФИО охранника",
+		"guardPlaceholder": "Выберите охранника",
+		"company": "Компания",
+		"companyPlaceholder": "Выберите компанию",
+		"customCompany": "Название компании",
+		"customCompanyPlaceholder": "Введите название компании вручную",
+		"carNumber": "Номер машины (01X001XX / 01001XXX)",
+		"carPlaceholder": "Введите номер машины",
+		"direction": "Направление",
+		"directionPlaceholder": "Выберите направление",
+		"placesCount": "Кол-во мест",
+		"placesPlaceholder": "Введите количество мест",
+		"cargoWeight": "Вес груза (в кг) (123.45)",
+		"weightPlaceholder": "Введите вес груза в кг",
+		"athNumber": "Номер АТН (АТ123456789...)",
+		"athPlaceholder": "Введите номер ATH",
+		"submit": "Отправить"
+	},
+	"directions": {
+		"import": "Импорт",
+		"export": "Экспорт",
+		"svh": "Забор с СВХ"
+	},
+	"validation": {
+		"required": "Обязательно",
+		"passRequired": "Введите номер пропуска",
+		"companyRequired": "Выберите компанию",
+		"customCompanyRequired": "Введите название компании",
+		"carRequired": "Введите номер машины",
+		"placesRequired": "Введите количество мест",
+		"weightRequired": "Введите вес груза",
+		"nameRequired": "Введите ФИО"
+	},
+	"notifications": {
+		"success": "Успешно",
+		"exitSuccess": "Выезд успешно зарегистрирован",
+		"entrySuccess": "Въезд успешно зарегистрирован",
+		"error": "Ошибка",
+		"passError": "Пропуск недействителен или не найден",
+		"submitError": "Не удалось отправить данные"
+	},
+	"adminPanel": {
+		"title": "Админ панель — Пользователи",
+		"username": "Имя пользователя",
+		"phone": "Номер телефона",
+		"role": "Роль",
+		"addButton": "Добавить",
+		"nameColumn": "Имя",
+		"phoneColumn": "Номер",
+		"roleColumn": "Роли",
+		"actionsColumn": "Действия",
+		"deleteConfirmTitle": "Удалить пользователя?",
+		"deleteConfirmConfirm": "Да",
+		"deleteConfirmCancel": "Нет",
+		"deleteButton": "Удалить"
+	},
+	"roles": {
+		"GUARD": "Охранник",
+		"MANAGER": "Зав. склад",
+		"ADMIN": "Админ"
+	},
+	"notificationsAdmin": {
+		"userAdded": "Пользователь добавлен",
+		"userDeleted": "Пользователь удален",
+		"loadUsersError": "Не удалось загрузить пользователей",
+		"addUserError": "Не удалось добавить пользователя",
+		"deleteUserError": "Не удалось удалить пользователя"
+	},
+	"warehousePage": {
+		"title": "Заведующий склада NWL",
+		"managerName": "ФИО Зав. Склада",
+		"managerNameValue": "Гафуров Кудратжон",
+		"passNumber": "Номер пропуска",
+		"passPlaceholder": "Введите номер пропуска",
+		"company": "Компания",
+		"companyPlaceholder": "Выберите компанию",
+		"customCompany": "Введите название компании",
+		"customCompanyPlaceholder": "Введите название в ручную",
+		"pickupMethod": "Метод забора",
+		"pickupPlaceholder": "Выберите метод забора",
+		"manual": "вручную",
+		"byCar": "на машине",
+		"carNumber": "Номер машины (01X001XX / 01001XXX)",
+		"carPlaceholder": "Введите номер машины",
+		"placesCount": "Количество мест",
+		"placesPlaceholder": "Введите количество мест",
+		"cargoWeight": "Вес груза (кг)",
+		"weightPlaceholder": "Введите вес груза",
+		"submit": "Отправить"
+	},
+	"notificationsWarehouse": {
+		"passAdded": "Ruxsatnoma muvaffaqiyatli qo'shildi"
+	}
+}

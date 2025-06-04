@@ -1,0 +1,104 @@
+{
+	"guardPage": {
+		"title": "NWL nazorat punkti qo'riqchisi",
+		"actionType": "Harakat turi",
+		"entry": "kirish",
+		"exit": "chiqish",
+		"passNumber": "Ruxsatnoma raqami",
+		"passPlaceholder": "Ruxsatnoma raqamini kiriting",
+		"kppNumber": "Nazorat punkti raqami",
+		"kppPlaceholder": "Nazorat punktini tanlang",
+		"guardName": "Qo'riqchi FISH",
+		"guardPlaceholder": "Qo'riqchini tanlang",
+		"company": "Kompaniya",
+		"companyPlaceholder": "Kompaniyani tanlang",
+		"customCompany": "Kompaniya nomi",
+		"customCompanyPlaceholder": "Kompaniya nomini qo'lda kiriting",
+		"carNumber": "Mashina raqami (01X001XX / 01001XXX)",
+		"carPlaceholder": "Mashina raqamini kiriting",
+		"direction": "Yo'nalish",
+		"directionPlaceholder": "Yo'nalishni tanlang",
+		"placesCount": "O'rinlar soni",
+		"placesPlaceholder": "O'rinlar sonini kiriting",
+		"cargoWeight": "Yuk og'irligi (kg) (123.45)",
+		"weightPlaceholder": "Yuk og'irligini kg da kiriting",
+		"athNumber": "ATH raqami (АТ123456789...)",
+		"athPlaceholder": "ATH raqamini kiriting",
+		"submit": "Yuborish"
+	},
+	"directions": {
+		"import": "Import",
+		"export": "Eksport",
+		"svh": "SXH dan olib kelingan"
+	},
+	"validation": {
+		"required": "Majburiy",
+		"passRequired": "Ruxsatnoma raqamini kiriting",
+		"companyRequired": "Kompaniyani tanlang",
+		"customCompanyRequired": "Kompaniya nomini kiriting",
+		"carRequired": "Mashina raqamini kiriting",
+		"placesRequired": "O'rinlar sonini kiriting",
+		"weightRequired": "Yuk og'irligini kiriting",
+		"nameRequired": "Familiya ism sharifini kiriting"
+	},
+	"notifications": {
+		"success": "Muvaffaqiyatli",
+		"exitSuccess": "Chiqish muvaffaqiyatli ro'yxatga olindi",
+		"entrySuccess": "Kirish muvaffaqiyatli ro'yxatga olindi",
+		"error": "Xato",
+		"passError": "Ruxsatnoma yaroqsiz yoki topilmadi",
+		"submitError": "Ma'lumotlarni yuborib bo'lmadi"
+	},
+	"adminPanel": {
+		"title": "Admin panel — Foydalanuvchilar",
+		"username": "Foydalanuvchi nomi",
+		"phone": "Telefon raqami",
+		"role": "Rol",
+		"addButton": "Qo'shish",
+		"nameColumn": "Ism",
+		"phoneColumn": "Raqam",
+		"roleColumn": "Rollar",
+		"actionsColumn": "Harakatlar",
+		"deleteConfirmTitle": "Foydalanuvchini o'chirish?",
+		"deleteConfirmConfirm": "Ha",
+		"deleteConfirmCancel": "Yo'q",
+		"deleteButton": "O'chirish"
+	},
+	"roles": {
+		"GUARD": "Qo'riqchi",
+		"MANAGER": "Ombor mudiri",
+		"ADMIN": "Admin"
+	},
+	"notificationsAdmin": {
+		"userAdded": "Foydalanuvchi qo'shildi",
+		"userDeleted": "Foydalanuvchi o'chirildi",
+		"loadUsersError": "Foydalanuvchilarni yuklab bo'lmadi",
+		"addUserError": "Foydalanuvchi qo'shib bo'lmadi",
+		"deleteUserError": "Foydalanuvchini o'chirib bo'lmadi"
+	},
+	"warehousePage": {
+		"title": "Ombor mudiri NWL",
+		"managerName": "Ombor mudiri FISH",
+		"managerNameValue": "G'afurov Qudratjon",
+		"passNumber": "Ruxsatnoma raqami",
+		"passPlaceholder": "Ruxsatnoma raqamini kiriting",
+		"company": "Kompaniya",
+		"companyPlaceholder": "Kompaniyani tanlang",
+		"customCompany": "Kompaniya nomini kiriting",
+		"customCompanyPlaceholder": "Kompaniya nomini qo'lda kiriting",
+		"pickupMethod": "Olish usuli",
+		"pickupPlaceholder": "Olish usulini tanlang",
+		"manual": "qo'lda",
+		"byCar": "mashinada",
+		"carNumber": "Mashina raqami (01X001XX / 01001XXX)",
+		"carPlaceholder": "Mashina raqamini kiriting",
+		"placesCount": "O'rinlar soni",
+		"placesPlaceholder": "O'rinlar sonini kiriting",
+		"cargoWeight": "Yuk og'irligi (kg)",
+		"weightPlaceholder": "Yuk og'irligini kiriting",
+		"submit": "Yuborish"
+	},
+	"notificationsWarehouse": {
+		"passAdded": "Пропуск успешно добавлен"
+	}
+}
