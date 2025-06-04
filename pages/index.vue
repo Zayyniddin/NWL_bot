@@ -14,6 +14,7 @@ const availableLanguages = reactive([
   { code: 'uz', label: 'O‘zbekcha' },
 ])
 
+
 const access_token = ref(localStorage.getItem('access_token') || null)
 const isFetched = ref(false)
 const authCode = ref('')
