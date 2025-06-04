@@ -33,6 +33,7 @@ export default defineNuxtConfig({
 			{ code: 'uz', file: 'uz.json' },
 			{ code: 'ru', file: 'ru.json' },
 		],
+
 		compilation: {
 			strictMessage: false,
 		},
