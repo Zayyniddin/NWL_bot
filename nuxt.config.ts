@@ -30,7 +30,6 @@ export default defineNuxtConfig({
 	css: ['~/assets/css/main.css'],
 	i18n: {
 		locales: [
-			{ code: 'la', file: 'la.json' },
 			{ code: 'uz', file: 'uz.json' },
 			{ code: 'ru', file: 'ru.json' },
 		],
