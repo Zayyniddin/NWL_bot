@@ -13,16 +13,16 @@
 			</el-form-item>
 			<!-- Pass Number -->
 			<el-form-item :label="$t('warehousePage.passNumber')" required>
-				<el-input 
-					v-model="passNumber" 
-					:placeholder="$t('warehousePage.passPlaceholder')" 
+				<el-input
+					v-model="passNumber"
+					:placeholder="$t('warehousePage.passPlaceholder')"
 				/>
 			</el-form-item>
 
 			<!-- Company -->
 			<el-form-item :label="$t('warehousePage.company')" required>
-				<el-select 
-					v-model="selectedCompany" 
+				<el-select
+					v-model="selectedCompany"
 					:placeholder="$t('warehousePage.companyPlaceholder')"
 				>
 					<el-option
@@ -36,7 +36,7 @@
 
 			<!-- Custom Company -->
 			<el-form-item
-				v-if="selectedCompany === $t('company.other')"
+				v-if="selectedCompany === 'Другое'"
 				:label="$t('warehousePage.customCompany')"
 				required
 			>
@@ -47,18 +47,12 @@
 			</el-form-item>
 
 			<el-form-item :label="$t('warehousePage.pickupMethod')" required>
-				<el-select 
-					v-model="pickupMethod" 
+				<el-select
+					v-model="pickupMethod"
 					:placeholder="$t('warehousePage.pickupPlaceholder')"
 				>
-					<el-option 
-						:label="$t('warehousePage.manual')" 
-						value="manual" 
-					/>
-					<el-option 
-						:label="$t('warehousePage.byCar')" 
-						value="byCar" 
-					/>
+					<el-option :label="$t('warehousePage.manual')" value="manual" />
+					<el-option :label="$t('warehousePage.byCar')" value="byCar" />
 				</el-select>
 			</el-form-item>
 
@@ -68,9 +62,9 @@
 				:label="$t('warehousePage.carNumber')"
 				required
 			>
-				<el-input 
-					v-model="carNumber" 
-					:placeholder="$t('warehousePage.carPlaceholder')" 
+				<el-input
+					v-model="carNumber"
+					:placeholder="$t('warehousePage.carPlaceholder')"
 				/>
 			</el-form-item>
 
@@ -212,7 +206,7 @@ const companies = [
 
 const isFormValid = computed(() => {
 	const isCompanyValid =
-		selectedCompany.value === t('company.other')
+		selectedCompany.value === 'Другое'
 			? customCompany.value.trim() !== ''
 			: selectedCompany.value.trim() !== ''
 
@@ -233,7 +227,7 @@ const submitForm = async () => {
 	isLoading.value = true
 
 	const companyName =
-		selectedCompany.value === t('company.other')
+		selectedCompany.value === 'Другое'
 			? customCompany.value
 			: selectedCompany.value
 

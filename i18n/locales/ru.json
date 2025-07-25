@@ -11,6 +11,7 @@
 		"guardName": "ФИО охранника",
 		"guardPlaceholder": "Выберите охранника",
 		"company": "Компания",
+		"other": "Другая",
 		"companyPlaceholder": "Выберите компанию",
 		"customCompany": "Название компании",
 		"customCompanyPlaceholder": "Введите название компании вручную",
