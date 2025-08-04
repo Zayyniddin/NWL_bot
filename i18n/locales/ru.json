@@ -71,6 +71,7 @@
 		"ADMIN": "Админ"
 	},
 	"notificationsAdmin": {
+		"success": "Успешно",
 		"userAdded": "Пользователь добавлен",
 		"userDeleted": "Пользователь удален",
 		"loadUsersError": "Не удалось загрузить пользователей",

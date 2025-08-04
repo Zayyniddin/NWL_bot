@@ -71,6 +71,7 @@
 		"ADMIN": "Admin"
 	},
 	"notificationsAdmin": {
+		"success": "Muvaffaqiyatli",
 		"userAdded": "Foydalanuvchi qo'shildi",
 		"userDeleted": "Foydalanuvchi o'chirildi",
 		"loadUsersError": "Foydalanuvchilarni yuklab bo'lmadi",
