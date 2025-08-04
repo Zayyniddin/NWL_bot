@@ -22,6 +22,7 @@
 			<!-- Company -->
 			<el-form-item :label="$t('warehousePage.company')" required>
 				<el-select
+					filterable
 					v-model="selectedCompany"
 					:placeholder="$t('warehousePage.companyPlaceholder')"
 				>

@@ -58,6 +58,7 @@
 					<!-- ФИО -->
 					<el-form-item :label="$t('guardPage.guardName')" prop="fullName">
 						<el-select
+								filterable
 							v-model="form.fullName"
 							:placeholder="$t('guardPage.guardPlaceholder')"
 							:filterable="false"
@@ -74,6 +75,7 @@
 					<!-- Компания -->
 					<el-form-item :label="$t('guardPage.company')" prop="selectedCompany">
 						<el-select
+							filterable
 							v-model="form.selectedCompany"
 							:filterable="false"
 							:placeholder="$t('guardPage.companyPlaceholder')"
